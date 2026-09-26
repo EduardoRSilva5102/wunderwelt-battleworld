@@ -6,6 +6,7 @@ public final class Enemy {
     private final BattleType battleType;
     private final int maxHp;
     private final int attackPower;
+    private String portraitPublicId = "enemies/enemy_guard_default";
 
     public Enemy(String name, String description, BattleType battleType, int maxHp, int attackPower) {
         this.name = name;
@@ -20,11 +21,19 @@ public final class Enemy {
     public BattleType getBattleType() { return battleType; }
     public int getMaxHp() { return maxHp; }
     public int getAttackPower() { return attackPower; }
+    /** Reserved delivery key; no Cloudinary call or upload is performed in the MVP. */
+    public String getPortraitPublicId() { return portraitPublicId; }
 
     public static Enemy forRegion(Region region) {
+        Enemy enemy = createForRegion(region);
+        enemy.portraitPublicId = "enemies/enemy_" + region.name().toLowerCase(java.util.Locale.ROOT) + "_default";
+        return enemy;
+    }
+
+    private static Enemy createForRegion(Region region) {
         switch (region) {
             case EGYPTIA:
-                return new Enemy("Cavaleiro da Lua", "Um guerreiro de Khonshu bloqueia a passagem.", BattleType.MYSTICAL, 36, 6);
+                return new Enemy("Cavaleiro da Lua", "Um dos guerreiros licantropos de Khonshu bloqueia a passagem.", BattleType.MYSTICAL, 36, 6);
             case UTOPOLIS:
                 return new Enemy("Nighthawk", "O membro do Esquadrão Sinistro testa quem cruza Utopolis.", BattleType.TECHNOLOGICAL, 36, 6);
             case THE_REGENCY:
@@ -54,7 +63,10 @@ public final class Enemy {
     }
 
     public static Enemy forManhattan(boolean underground) {
-        return underground ? new Enemy("Drácula", "O senhor dos vampiros exige o fragmento como tributo.",
-                BattleType.MYSTICAL, 38, 6) : forRegion(Region.MANHATTAN);
+        if (!underground) return forRegion(Region.MANHATTAN);
+        Enemy enemy = new Enemy("Drácula", "O senhor dos vampiros exige o fragmento como tributo.",
+                BattleType.MYSTICAL, 38, 6);
+        enemy.portraitPublicId = "enemies/enemy_dracula_default";
+        return enemy;
     }
 }

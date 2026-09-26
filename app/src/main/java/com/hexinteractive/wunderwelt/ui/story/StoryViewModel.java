@@ -81,12 +81,12 @@ public class StoryViewModel extends ViewModel {
                         new StoryChoice("Concluir a jornada", progress.hasFlag("chose_truth")
                                 ? "ending_truth" : "ending_order", null, false));
             case "ending_truth":
-                return new StoryScene("ending_truth", "Rumo a Doomstadt", "Narrador",
+                return new StoryScene("ending_truth", "Uma verdade em movimento", "Narrador",
                         player.getName() + " revela a memória diante do trono. A história oficial ganha uma fissura que não pode ser fechada. "
                                 + "Você deixa Doomstadt levando a verdade aos sobreviventes. Fim desta jornada.",
                         new StoryChoice("Jogar novamente", "restart", null, false));
             case "ending_order":
-                return new StoryScene("ending_order", "Rumo a Doomstadt", "Narrador",
+                return new StoryScene("ending_order", "O tempo de reconstruir", "Narrador",
                         player.getName() + " preserva o fragmento como testemunho e exige tempo para preparar os domínios. "
                                 + "A estabilidade deixa de ser silêncio: torna-se uma responsabilidade compartilhada. Fim desta jornada.",
                         new StoryChoice("Jogar novamente", "restart", null, false));

@@ -34,6 +34,13 @@ public class OpeningFragment extends Fragment {
         binding.crawlViewport.post(() -> {
             if (binding == null || !isResumed() || leaving) return;
             if (animator != null) { animator.resume(); return; }
+            // FrameLayout constrains wrap_content to its viewport. Measure the entire
+            // text explicitly so the last paragraphs can scroll into view on small screens.
+            binding.crawlText.measure(View.MeasureSpec.makeMeasureSpec(binding.crawlViewport.getWidth(), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            android.view.ViewGroup.LayoutParams params = binding.crawlText.getLayoutParams();
+            params.height = binding.crawlText.getMeasuredHeight();
+            binding.crawlText.setLayoutParams(params);
             animator = ValueAnimator.ofFloat(fraction, 1f);
             animator.setDuration((long) (42000 * (1f - fraction)));
             animator.setInterpolator(new LinearInterpolator());

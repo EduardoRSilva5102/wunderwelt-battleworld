@@ -20,4 +20,13 @@ public class BattlePresentationTest {
             }
         }
     }
+    @Test public void enemiesHaveStableDistinctDeliveryKeys() {
+        Set<String> keys = new HashSet<>();
+        for (Region region : Region.values()) {
+            String key = Enemy.forRegion(region).getPortraitPublicId();
+            assertTrue(key.matches("enemies/enemy_[a-z_0-9]+_default"));
+            assertTrue(keys.add(key));
+        }
+        assertTrue(keys.add(Enemy.forManhattan(true).getPortraitPublicId()));
+    }
 }

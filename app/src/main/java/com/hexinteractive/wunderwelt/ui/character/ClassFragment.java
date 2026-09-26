@@ -49,6 +49,7 @@ public class ClassFragment extends Fragment {
     }
 
     private void showWeapons(ClassType classType) {
+        binding.weaponSpinner.setOnItemSelectedListener(null);
         List<Weapon> weapons = Weapon.forClass(classType);
         binding.weaponSpinner.setAdapter(spinnerAdapter(weapons));
         int selected = weapons.indexOf(viewModel.getWeapon());
