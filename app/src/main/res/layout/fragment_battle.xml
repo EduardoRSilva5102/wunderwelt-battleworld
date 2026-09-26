@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/battle_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    tools:context=".ui.battle.BattleFragment">
-</FrameLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/charcoal" android:fillViewport="true" tools:context=".ui.battle.BattleFragment">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_horizontal" android:orientation="vertical" android:padding="@dimen/screen_padding">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CONFRONTO" android:textColor="@color/imperial_gold" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <TextView android:id="@+id/enemy_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/ivory" android:textSize="26sp" android:textStyle="bold" />
+        <TextView android:id="@+id/enemy_type" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_secondary" />
+        <ProgressBar android:id="@+id/enemy_hp" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="16dp" android:layout_marginTop="12dp" />
+        <TextView android:id="@+id/enemy_hp_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_secondary" />
+        <View android:layout_width="150dp" android:layout_height="150dp" android:layout_marginTop="16dp" android:background="@drawable/bg_logo_placeholder" />
+        <TextView android:id="@+id/battle_log" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:background="@drawable/bg_panel" android:gravity="center" android:minHeight="96dp" android:padding="@dimen/panel_padding" android:textColor="@color/ivory" android:textSize="16sp" />
+        <TextView android:id="@+id/player_hp_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:textColor="@color/ivory" android:textStyle="bold" />
+        <ProgressBar android:id="@+id/player_hp" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="16dp" />
+        <LinearLayout android:id="@+id/actions_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:orientation="vertical">
+            <com.google.android.material.button.MaterialButton android:id="@+id/attack_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Atacar" tools:ignore="HardcodedText" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/ability_button" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Habilidade" tools:ignore="HardcodedText" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/defend_button" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Defender" tools:ignore="HardcodedText" />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton android:id="@+id/result_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

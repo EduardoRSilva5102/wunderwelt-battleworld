@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/class_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    tools:context=".ui.character.ClassFragment">
-</FrameLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/charcoal" android:fillViewport="true" tools:context=".ui.character.ClassFragment">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/screen_padding">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CRIAÇÃO · 2 DE 4" android:textColor="@color/imperial_gold" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Como você luta?" android:textColor="@color/ivory" android:textSize="26sp" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="Classe" android:textColor="@color/ivory" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <Spinner android:id="@+id/class_spinner" android:layout_width="match_parent" android:layout_height="52dp" />
+        <TextView android:id="@+id/class_description" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:background="@drawable/bg_panel" android:padding="@dimen/panel_padding" android:textColor="@color/text_secondary" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="Arma ou especialização" android:textColor="@color/ivory" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <Spinner android:id="@+id/weapon_spinner" android:layout_width="match_parent" android:layout_height="52dp" />
+        <TextView android:id="@+id/weapon_description" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/imperial_gold" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/next_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="28dp" android:text="Continuar" tools:ignore="HardcodedText" />
+    </LinearLayout>
+</ScrollView>

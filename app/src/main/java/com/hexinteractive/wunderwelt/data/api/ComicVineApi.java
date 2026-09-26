@@ -1,4 +1,5 @@
 package com.hexinteractive.wunderwelt.data.api;
 
-public class ComicVineApi {
+/** Marcador da futura fonte remota do catálogo. */
+public interface ComicVineApi {
 }

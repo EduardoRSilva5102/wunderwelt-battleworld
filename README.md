@@ -593,14 +593,38 @@ onde acontece o confronto contra:
 
 # 🚧 Status atual
 
-O projeto está atualmente em fase de:
+O projeto possui um vertical slice funcional:
 
-- definição das mecânicas;
-- planejamento narrativo;
-- prototipação das telas;
-- estruturação da arquitetura Android.
+- splash nativo e introdução;
+- criação de personagem com raça, variante, classe, arma, região e dez pontos de atributos;
+- resumo e validação da ficha;
+- cena narrativa variável por região, duas escolhas e consequências;
+- batalha por turnos com ataque, habilidade, defesa, crítico e vantagens de tipo;
+- inimigo específico por região, vitória, derrota e repetição da batalha;
+- epílogo curto com duas direções narrativas e opção de reiniciar;
+- catálogo local pesquisável com seis personagens placeholder e tela de detalhes;
+- estados de loading, resultado vazio e personagem não encontrado;
+- tela de créditos e placeholders construídos com recursos XML.
 
-A estrutura inicial do projeto Android já foi criada e versionada.
+Os valores de dano, HP, crítico e vantagem são provisórios e estão centralizados em
+`Constants` e `DamageCalculator` para facilitar o balanceamento posterior.
+
+## ▶️ Executando o projeto
+
+Crie ou atualize o arquivo local `local.properties` sem versioná-lo:
+
+```properties
+sdk.dir=CAMINHO_DO_ANDROID_SDK
+```
+
+Então execute:
+
+```text
+gradlew.bat testDebugUnitTest lintDebug assembleDebug
+```
+
+Todo o MVP funciona sem internet. O catálogo externo usa registros locais placeholder;
+a integração com a Comic Vine fica isolada como evolução posterior.
 
 ---
 

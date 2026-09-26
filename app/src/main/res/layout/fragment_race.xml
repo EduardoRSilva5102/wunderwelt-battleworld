@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/race_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    tools:context=".ui.character.RaceFragment">
-</FrameLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/charcoal" android:fillViewport="true" tools:context=".ui.character.RaceFragment">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/screen_padding">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CRIAÇÃO · 1 DE 4" android:textColor="@color/imperial_gold" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Quem atravessará Battleworld?" android:textColor="@color/ivory" android:textSize="26sp" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/name_input_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:hint="Nome do protagonista" tools:ignore="HardcodedText">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/name_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="textCapWords" android:maxLength="24" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="Raça" android:textColor="@color/ivory" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <Spinner android:id="@+id/race_spinner" android:layout_width="match_parent" android:layout_height="52dp" android:spinnerMode="dropdown" />
+        <TextView android:id="@+id/race_description" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:background="@drawable/bg_panel" android:padding="@dimen/panel_padding" android:textColor="@color/text_secondary" />
+        <TextView android:id="@+id/variant_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="Variante" android:textColor="@color/ivory" android:textStyle="bold" tools:ignore="HardcodedText" />
+        <Spinner android:id="@+id/variant_spinner" android:layout_width="match_parent" android:layout_height="52dp" android:spinnerMode="dropdown" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/next_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="28dp" android:text="Continuar" tools:ignore="HardcodedText" />
+    </LinearLayout>
+</ScrollView>

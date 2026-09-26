@@ -16,4 +16,10 @@
     </style>
 
     <style name="Theme.Wunderwelt" parent="Base.Theme.Wunderwelt" />
+
+    <style name="Theme.Wunderwelt.Starting" parent="Theme.Wunderwelt">
+        <item name="android:windowSplashScreenBackground">@color/charcoal</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="android:windowSplashScreenAnimationDuration">600</item>
+    </style>
 </resources>
