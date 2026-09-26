@@ -74,7 +74,7 @@ public final class DamageCalculator {
         }
     }
 
-    private float getTypeMultiplier(BattleType attacker, BattleType defender) {
+    public static float getTypeMultiplier(BattleType attacker, BattleType defender) {
         if (attacker.hasAdvantageOver(defender)) {
             return Constants.TYPE_ADVANTAGE_MULTIPLIER;
         }

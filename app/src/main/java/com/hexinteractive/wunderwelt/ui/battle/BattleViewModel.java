@@ -20,6 +20,7 @@ public class BattleViewModel extends ViewModel {
     private boolean abilityAvailable;
     private boolean finished;
     private boolean won;
+    private int turn;
 
     public BattleViewModel() {
         startBattle();
@@ -64,6 +65,7 @@ public class BattleViewModel extends ViewModel {
         abilityAvailable = true;
         finished = false;
         won = false;
+        turn = 0;
         publish(enemy.getDescription());
     }
 
@@ -72,7 +74,9 @@ public class BattleViewModel extends ViewModel {
         DamageCalculator.DamageResult result = damageCalculator.calculatePlayerAttack(player, enemy, ability);
         enemyHp = Math.max(0, enemyHp - result.getDamage());
         StringBuilder message = new StringBuilder();
-        message.append(player.getName()).append(ability ? " usa sua habilidade" : " ataca com " + player.getWeapon())
+        String[] verbs = {" avança com ", " encontra uma abertura com ", " pressiona com "};
+        message.append(player.getName()).append(ability ? " usa " + player.getClassType().getAbilityName()
+                        : verbs[turn++ % verbs.length] + player.getWeapon())
                 .append(" e causa ").append(result.getDamage()).append(" de dano.");
         if (result.isCritical()) message.append(" Acerto crítico!");
         if (result.hasAdvantage()) message.append(" O tipo do ataque é vantajoso.");
@@ -86,7 +90,8 @@ public class BattleViewModel extends ViewModel {
         }
         int retaliation = damageCalculator.calculateEnemyAttack(enemy, player, false);
         playerHp = Math.max(0, playerHp - retaliation);
-        message.append("\n").append(enemy.getName()).append(" responde e causa ").append(retaliation).append(" de dano.");
+        message.append("\n").append(enemy.getName()).append(turn % 2 == 0
+                ? " recupera a iniciativa: " : " contra-ataca: ").append(retaliation).append(" de dano.");
         checkDefeat(message.toString());
     }
 

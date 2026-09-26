@@ -19,6 +19,16 @@ public enum ClassType {
         return description;
     }
 
+    public String getAbilityName() {
+        switch (this) {
+            case WARRIOR: return "Golpe Ancestral";
+            case BRAWLER: return "Fúria Contida";
+            case MARKSMAN: return "Tiro Calculado";
+            case MAGE: return "Ruptura Mística";
+            default: return "Sobrecarga";
+        }
+    }
+
     @Override
     public String toString() {
         return displayName;
