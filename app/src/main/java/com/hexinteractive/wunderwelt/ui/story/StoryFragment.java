@@ -48,6 +48,10 @@ public class StoryFragment extends Fragment {
         super.onResume();
         if (viewModel != null && viewModel.hasGame()) {
             viewModel.applyBattleResult();
+            if (viewModel.hasPendingBattle()) {
+                NavHostFragment.findNavController(this).navigate(R.id.action_story_to_battle);
+                return;
+            }
             render();
         }
     }
@@ -66,7 +70,7 @@ public class StoryFragment extends Fragment {
     private void render() {
         if (binding == null || !viewModel.hasGame()) return;
         StoryScene scene = viewModel.getCurrentScene();
-        binding.chapterLabel.setText("CAPÍTULO 1 · ORIGEM");
+        binding.chapterLabel.setText(viewModel.getChapterLabel());
         binding.sceneTitle.setText(scene.getTitle());
         binding.narrator.setText(scene.getNarrator());
         binding.storyText.setText(scene.getText());

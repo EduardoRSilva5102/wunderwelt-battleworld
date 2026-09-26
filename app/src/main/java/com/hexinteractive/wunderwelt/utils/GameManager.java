@@ -31,7 +31,9 @@ public final class GameManager {
     public StoryProgress getStoryProgress() { return storyProgress; }
 
     public Enemy prepareBattle() {
-        currentEnemy = Enemy.forRegion(player.getRegion());
+        currentEnemy = storyProgress.getCurrentRegion() == com.hexinteractive.wunderwelt.model.game.Region.MANHATTAN
+                ? Enemy.forManhattan(storyProgress.hasFlag("manhattan_underground"))
+                : Enemy.forRegion(storyProgress.getCurrentRegion());
         lastBattleWon = null;
         return currentEnemy;
     }

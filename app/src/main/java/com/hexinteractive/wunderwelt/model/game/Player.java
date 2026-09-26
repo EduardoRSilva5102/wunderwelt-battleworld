@@ -34,7 +34,7 @@ public final class Player {
             throw new IllegalArgumentException("A arma não pertence à classe escolhida.");
         }
         if (!region.isStartingRegion()) {
-            throw new IllegalArgumentException("Doomstadt não pode ser uma região inicial.");
+            throw new IllegalArgumentException("Escolha uma das seis regiões de origem.");
         }
         if (!attributes.isComplete()) {
             throw new IllegalArgumentException("Distribua todos os pontos de atributo.");
