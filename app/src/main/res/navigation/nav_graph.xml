@@ -2,12 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/introFragment">
+    app:startDestination="@id/openingFragment">
+
+    <fragment android:id="@+id/openingFragment"
+        android:name="com.hexinteractive.wunderwelt.ui.intro.OpeningFragment"
+        android:label="Abertura">
+        <action android:id="@+id/action_opening_to_menu" app:destination="@id/introFragment"
+            app:popUpTo="@id/openingFragment" app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/introFragment"
         android:name="com.hexinteractive.wunderwelt.ui.intro.IntroFragment"
-        android:label="Introdução">
+        android:label="Menu principal">
         <action android:id="@+id/action_intro_to_race" app:destination="@id/raceFragment" />
         <action android:id="@+id/action_intro_to_marvel" app:destination="@id/marvelFragment" />
         <action android:id="@+id/action_intro_to_credits" app:destination="@id/creditsFragment" />
