@@ -32,6 +32,11 @@ public class StoryFragment extends Fragment {
             return;
         }
         binding.choiceOneButton.setOnClickListener(ignored -> handleChoice(0));
+        binding.statusButton.setOnClickListener(ignored -> {
+            Bundle args = new Bundle();
+            args.putBoolean("readOnly", true);
+            NavHostFragment.findNavController(this).navigate(R.id.characterSummaryFragment, args);
+        });
         binding.choiceTwoButton.setOnClickListener(ignored -> handleChoice(1));
         binding.archiveButton.setOnClickListener(ignored ->
                 NavHostFragment.findNavController(this).navigate(R.id.action_story_to_marvel));

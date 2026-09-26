@@ -28,20 +28,29 @@ public class CharacterSummaryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentCharacterSummaryBinding.bind(view);
         CharacterViewModel viewModel = new ViewModelProvider(requireActivity()).get(CharacterViewModel.class);
-        binding.playerName.setText(viewModel.getName());
-        String variant = viewModel.getRaceVariant() == null ? "" : " · " + viewModel.getRaceVariant();
+        boolean status = getArguments() != null && getArguments().getBoolean("readOnly");
+        if ((status && !GameManager.getInstance().hasActiveGame()) || (!status && !viewModel.canBuildPlayer())) {
+            NavHostFragment.findNavController(this).popBackStack();
+            return;
+        }
+        Player card = status ? GameManager.getInstance().getPlayer() : viewModel.buildPlayer();
+        binding.playerName.setText(card.getName());
+        String variant = card.getRaceVariant() == null ? "" : " · " + card.getRaceVariant();
         binding.identitySummary.setText(
-                "Raça: " + viewModel.getRace() + variant + "\n"
-                        + "Classe: " + viewModel.getClassType() + "\n"
-                        + "Arma: " + viewModel.getWeapon() + " (" + viewModel.getWeapon().getBattleType() + ")\n"
-                        + "Origem: " + viewModel.getRegion()
+                "Raça: " + card.getRace() + variant + "\n"
+                        + "Classe: " + card.getClassType() + "\n"
+                        + "Arma: " + card.getWeapon() + " (" + card.getWeapon().getBattleType() + ")\n"
+                        + "Origem: " + card.getRegion()
         );
-        Attributes a = viewModel.getAttributes();
+        Attributes a = card.getAttributes();
         binding.attributesSummary.setText(
                 "Força " + a.get(AttributeType.STRENGTH) + "   ·   Vitalidade " + a.get(AttributeType.VITALITY) + "\n"
                         + "Agilidade " + a.get(AttributeType.AGILITY) + "   ·   Inteligência " + a.get(AttributeType.INTELLIGENCE) + "\n"
-                        + "Energia " + a.get(AttributeType.ENERGY) + "   ·   HP " + viewModel.buildPlayer().getMaxHp()
+                        + "Energia " + a.get(AttributeType.ENERGY) + "   ·   HP máximo " + card.getMaxHp()
         );
+        binding.playerPortrait.setContentDescription("Retrato de " + card.getName());
+        binding.startStoryButton.setVisibility(status ? View.GONE : View.VISIBLE);
+        binding.editButton.setText(status ? "Voltar à jornada" : "Voltar e editar");
         binding.editButton.setOnClickListener(ignored ->
                 NavHostFragment.findNavController(this).popBackStack());
         binding.startStoryButton.setOnClickListener(ignored -> {

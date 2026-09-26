@@ -9,5 +9,6 @@
         <com.google.android.material.button.MaterialButton android:id="@+id/choice_one_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" />
         <com.google.android.material.button.MaterialButton android:id="@+id/choice_two_button" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" />
         <com.google.android.material.button.MaterialButton android:id="@+id/archive_button" style="@style/Widget.Material3.Button.TextButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Consultar Arquivo Comic Vine" tools:ignore="HardcodedText" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/status_button" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ficha do viajante" />
     </LinearLayout>
 </ScrollView>
