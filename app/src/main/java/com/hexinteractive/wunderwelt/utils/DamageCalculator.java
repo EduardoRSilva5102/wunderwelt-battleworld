@@ -19,7 +19,7 @@ public final class DamageCalculator {
     }
 
     public DamageResult calculatePlayerAttack(Player player, Enemy enemy, boolean ability) {
-        BattleType attackType = player.getWeapon().getBattleType();
+        BattleType attackType = getAttackType(player, ability);
         int relevantAttribute = getRelevantAttribute(player, attackType);
         int damage = Constants.BASE_ATTACK_DAMAGE + player.getWeapon().getPower() + relevantAttribute;
         if (ability) {
@@ -45,6 +45,19 @@ public final class DamageCalculator {
             damage = Math.round(damage * Constants.DEFEND_MULTIPLIER);
         }
         return Math.max(1, damage);
+    }
+
+    public int calculateEnemyAttack(Enemy enemy, Player player, boolean defending) {
+        int damage = calculateEnemyAttack(enemy, defending);
+        return Math.max(1, damage - (player.getRaceVariant()
+                == com.hexinteractive.wunderwelt.model.game.RaceVariant.KINETIC_ABSORPTION ? 1 : 0));
+    }
+
+    public static BattleType getAttackType(Player player, boolean ability) {
+        if (ability && player.getRaceVariant() != null && player.getRaceVariant().getPowerType() != null) {
+            return player.getRaceVariant().getPowerType();
+        }
+        return player.getWeapon().getBattleType();
     }
 
     private int getRelevantAttribute(Player player, BattleType type) {

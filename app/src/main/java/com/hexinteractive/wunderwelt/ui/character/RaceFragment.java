@@ -61,6 +61,15 @@ public class RaceFragment extends Fragment {
     }
 
     private void showVariants(Race race) {
+        binding.variantSpinner.setOnItemSelectedListener(null);
+        if (race == Race.MUTANT) {
+            binding.variantLabel.setText("Poder despertado: " + viewModel.getRaceVariant()
+                    + "\n" + viewModel.getRaceVariant().getPowerDescription());
+            binding.variantLabel.setVisibility(View.VISIBLE);
+            binding.variantSpinner.setVisibility(View.GONE);
+            return;
+        }
+        binding.variantLabel.setText("Variante");
         List<RaceVariant> variants = RaceVariant.forRace(race);
         boolean hasVariants = !variants.isEmpty();
         binding.variantLabel.setVisibility(hasVariants ? View.VISIBLE : View.GONE);
@@ -89,6 +98,9 @@ public class RaceFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        if (binding != null && binding.nameInput.getText() != null) {
+            viewModel.setName(binding.nameInput.getText().toString());
+        }
         binding = null;
         super.onDestroyView();
     }

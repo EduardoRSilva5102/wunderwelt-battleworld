@@ -19,6 +19,7 @@ public class CharacterViewModel extends ViewModel {
     private Weapon weapon = Weapon.SWORD;
     private Region region = Region.VALLEY_OF_DOOM;
     private Attributes attributes = new Attributes();
+    private RaceVariant mutantPower;
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name == null ? "" : name.trim(); }
@@ -31,6 +32,11 @@ public class CharacterViewModel extends ViewModel {
 
     public void setRace(Race race) {
         this.race = race;
+        if (race == Race.MUTANT) {
+            if (mutantPower == null) mutantPower = RaceVariant.rollMutantPower(new java.util.Random());
+            raceVariant = mutantPower;
+            return;
+        }
         if (raceVariant == null || raceVariant.getRace() != race) {
             java.util.List<RaceVariant> variants = RaceVariant.forRace(race);
             raceVariant = variants.isEmpty() ? null : variants.get(0);
@@ -38,6 +44,9 @@ public class CharacterViewModel extends ViewModel {
     }
 
     public void setRaceVariant(RaceVariant raceVariant) {
+        if (race == Race.MUTANT && raceVariant != mutantPower) {
+            throw new IllegalArgumentException("O poder mutante é sorteado uma vez por ficha.");
+        }
         if (raceVariant != null && raceVariant.getRace() != race) {
             throw new IllegalArgumentException("A variante não pertence à raça selecionada.");
         }
@@ -86,6 +95,7 @@ public class CharacterViewModel extends ViewModel {
     }
 
     public void reset() {
+        mutantPower = null;
         name = "";
         race = Race.HUMAN;
         raceVariant = RaceVariant.NORMAL;

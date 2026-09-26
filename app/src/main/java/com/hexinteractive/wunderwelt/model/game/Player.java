@@ -21,6 +21,9 @@ public final class Player {
         this.weapon = Objects.requireNonNull(weapon);
         this.region = Objects.requireNonNull(region);
         this.attributes = new Attributes(Objects.requireNonNull(attributes));
+        if (race == Race.MUTANT && raceVariant == null) {
+            throw new IllegalArgumentException("Mutantes precisam de um poder sorteado.");
+        }
         if (this.name.isEmpty()) {
             throw new IllegalArgumentException("O nome não pode estar vazio.");
         }
@@ -49,6 +52,7 @@ public final class Player {
 
     public int getMaxHp() {
         return Constants.BASE_PLAYER_HP
-                + attributes.get(AttributeType.VITALITY) * Constants.HP_PER_VITALITY;
+                + attributes.get(AttributeType.VITALITY) * Constants.HP_PER_VITALITY
+                + (raceVariant == RaceVariant.HEALING_FACTOR ? Constants.HP_PER_VITALITY : 0);
     }
 }

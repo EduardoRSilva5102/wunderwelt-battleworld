@@ -41,7 +41,7 @@ public class BattleViewModel extends ViewModel {
 
     public void defend() {
         if (finished) return;
-        int damage = damageCalculator.calculateEnemyAttack(enemy, true);
+        int damage = damageCalculator.calculateEnemyAttack(enemy, player, true);
         playerHp = Math.max(0, playerHp - damage);
         String message = player.getName() + " assume uma posição defensiva.\n"
                 + enemy.getName() + " causa " + damage + " de dano reduzido.";
@@ -84,7 +84,7 @@ public class BattleViewModel extends ViewModel {
             publish(message.append("\n").append(enemy.getName()).append(" foi derrotado.").toString());
             return;
         }
-        int retaliation = damageCalculator.calculateEnemyAttack(enemy, false);
+        int retaliation = damageCalculator.calculateEnemyAttack(enemy, player, false);
         playerHp = Math.max(0, playerHp - retaliation);
         message.append("\n").append(enemy.getName()).append(" responde e causa ").append(retaliation).append(" de dano.");
         checkDefeat(message.toString());
