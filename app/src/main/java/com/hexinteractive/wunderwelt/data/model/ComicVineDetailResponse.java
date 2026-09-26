@@ -1,7 +1,7 @@
 package com.hexinteractive.wunderwelt.data.model;
 
 public final class ComicVineDetailResponse<T> {
-    private int statusCode;
+    @com.google.gson.annotations.SerializedName("status_code") private int statusCode;
     private String error;
     private T results;
 

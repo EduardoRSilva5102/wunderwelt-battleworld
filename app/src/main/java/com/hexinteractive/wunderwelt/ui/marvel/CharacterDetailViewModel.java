@@ -18,7 +18,9 @@ public final class CharacterDetailViewModel extends ViewModel {
         loadedId = characterId;
         state.setValue(new DetailState(true, null, null));
         MarvelRepository.getInstance().getCharacter(characterId, new MarvelRepository.ResultCallback<Character>() {
-            @Override public void onSuccess(Character result) { state.setValue(new DetailState(false, result, null)); }
+            @Override public void onSuccess(Character result) {
+                if (loadedId == characterId) state.setValue(new DetailState(false, result, null));
+            }
             @Override public void onError(String message) { state.setValue(new DetailState(false, null, message)); }
         });
     }

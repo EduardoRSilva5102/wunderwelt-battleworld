@@ -3,7 +3,7 @@ package com.hexinteractive.wunderwelt.data.model;
 public class Issue {
     private long id;
     private String name;
-    private String issueNumber;
+    @com.google.gson.annotations.SerializedName("issue_number") private String issueNumber;
 
     public Issue(long id, String name, String issueNumber) {
         this.id = id;

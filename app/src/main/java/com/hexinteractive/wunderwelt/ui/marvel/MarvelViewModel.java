@@ -13,6 +13,7 @@ import java.util.List;
 public class MarvelViewModel extends ViewModel {
     private final MarvelRepository repository = MarvelRepository.getInstance();
     private final MutableLiveData<SearchState> state = new MutableLiveData<>(SearchState.idle());
+    private int generation;
 
     public MarvelViewModel() {
         search("");
@@ -21,14 +22,16 @@ public class MarvelViewModel extends ViewModel {
     public LiveData<SearchState> getState() { return state; }
 
     public void search(String query) {
+        int request = ++generation;
         String normalized = query == null ? "" : query.trim();
         state.setValue(SearchState.loading());
         repository.searchCharacters(normalized, new MarvelRepository.ResultCallback<List<Character>>() {
             @Override public void onSuccess(List<Character> result) {
+                if (request != generation) return;
                 if (result.isEmpty()) state.setValue(SearchState.error("Nenhum personagem encontrado."));
                 else state.setValue(SearchState.success(result));
             }
-            @Override public void onError(String message) { state.setValue(SearchState.error(message)); }
+            @Override public void onError(String message) { if (request == generation) state.setValue(SearchState.error(message)); }
         });
     }
 
@@ -46,6 +49,6 @@ public class MarvelViewModel extends ViewModel {
         static SearchState idle() { return new SearchState(false, "Carregando catálogo local...", Collections.emptyList()); }
         static SearchState loading() { return new SearchState(true, "Consultando o catálogo local...", Collections.emptyList()); }
         static SearchState error(String message) { return new SearchState(false, message, Collections.emptyList()); }
-        static SearchState success(List<Character> results) { return new SearchState(false, results.size() + " personagem(ns) disponível(is) offline", results); }
+        static SearchState success(List<Character> results) { return new SearchState(false, results.size() + " par(es) · normal / Battleworld · disponíveis offline", results); }
     }
 }

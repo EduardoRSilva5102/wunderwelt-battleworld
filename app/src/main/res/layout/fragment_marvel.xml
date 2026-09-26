@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/charcoal" android:orientation="vertical" android:padding="@dimen/screen_padding" tools:context=".ui.marvel.MarvelFragment">
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ARQUIVO EXTERNO" android:textColor="@color/imperial_gold" android:textStyle="bold" tools:ignore="HardcodedText" />
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Catálogo local" android:textColor="@color/ivory" android:textSize="28sp" android:textStyle="bold" tools:ignore="HardcodedText" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ARQUIVO COMPARATIVO" android:textColor="@color/imperial_gold" android:textStyle="bold" tools:ignore="HardcodedText" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Normal × Battleworld" android:textColor="@color/ivory" android:textSize="28sp" android:textStyle="bold" tools:ignore="HardcodedText" />
     <com.google.android.material.textfield.TextInputLayout android:id="@+id/search_input_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:hint="Buscar personagem" tools:ignore="HardcodedText">
         <com.google.android.material.textfield.TextInputEditText android:id="@+id/search_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionSearch" android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -11,5 +11,5 @@
     <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
         <LinearLayout android:id="@+id/results_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
     </ScrollView>
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:text="Conteúdo placeholder do MVP — integração remota virá depois" android:textColor="@color/text_secondary" android:textSize="12sp" tools:ignore="HardcodedText" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:text="Comic Vine complementa a versão normal. Battleworld: texto original local." android:textColor="@color/text_secondary" android:textSize="12sp" tools:ignore="HardcodedText" />
 </LinearLayout>

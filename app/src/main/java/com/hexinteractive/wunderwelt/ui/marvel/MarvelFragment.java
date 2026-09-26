@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.button.MaterialButton;
 import com.hexinteractive.wunderwelt.R;
 import com.hexinteractive.wunderwelt.data.model.Character;
+import com.hexinteractive.wunderwelt.data.repository.CharacterCatalog;
 import com.hexinteractive.wunderwelt.databinding.FragmentMarvelBinding;
 
 public class MarvelFragment extends Fragment {
@@ -55,7 +56,7 @@ public class MarvelFragment extends Fragment {
             MaterialButton button = new MaterialButton(requireContext(), null,
                     com.google.android.material.R.attr.materialButtonOutlinedStyle);
             String subtitle = character.getDeck().isEmpty() ? "" : "\n" + character.getDeck();
-            button.setText(character.getName() + subtitle);
+            button.setText(character.getName() + " ↔ " + CharacterCatalog.find(character.getId()).battleworldName + subtitle);
             button.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

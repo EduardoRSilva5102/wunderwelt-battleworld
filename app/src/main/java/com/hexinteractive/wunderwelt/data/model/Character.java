@@ -9,8 +9,10 @@ public class Character {
     private String deck;
     private String description;
     private List<Power> powers;
-    private Issue firstAppearedInIssue;
-    private String siteDetailUrl;
+    @com.google.gson.annotations.SerializedName("first_appeared_in_issue") private Issue firstAppearedInIssue;
+    @com.google.gson.annotations.SerializedName("site_detail_url") private String siteDetailUrl;
+    private Portrait image;
+    private transient boolean remote;
 
     public Character(long id, String name, String deck, String description,
                      List<Power> powers, Issue firstAppearedInIssue, String siteDetailUrl) {
@@ -30,4 +32,10 @@ public class Character {
     public List<Power> getPowers() { return powers == null ? Collections.emptyList() : powers; }
     public Issue getFirstAppearedInIssue() { return firstAppearedInIssue; }
     public String getSiteDetailUrl() { return siteDetailUrl == null ? "" : siteDetailUrl; }
+    public String getImageUrl() { return image == null || image.smallUrl == null ? "" : image.smallUrl; }
+    public boolean isRemote() { return remote; }
+    public void markRemote() { remote = true; }
+    private static final class Portrait {
+        @com.google.gson.annotations.SerializedName("small_url") String smallUrl;
+    }
 }

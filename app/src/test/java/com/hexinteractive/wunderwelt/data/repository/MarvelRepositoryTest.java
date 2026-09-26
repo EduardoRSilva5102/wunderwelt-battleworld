@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class MarvelRepositoryTest {
-    private final MarvelRepository repository = MarvelRepository.getInstance();
+    private final MarvelRepository repository = new MarvelRepository(null);
 
     @Test
     public void emptySearchReturnsTheOfflineCatalog() {

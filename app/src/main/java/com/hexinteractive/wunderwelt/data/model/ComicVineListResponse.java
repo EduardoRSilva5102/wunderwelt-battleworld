@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 public final class ComicVineListResponse<T> {
-    private int statusCode;
+    @com.google.gson.annotations.SerializedName("status_code") private int statusCode;
     private String error;
-    private int totalResults;
+    @com.google.gson.annotations.SerializedName("number_of_total_results") private int totalResults;
     private List<T> results;
 
     public boolean isSuccessful() { return statusCode == 1; }
