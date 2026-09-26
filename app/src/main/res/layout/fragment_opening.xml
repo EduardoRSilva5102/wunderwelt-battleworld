@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/charcoal" android:orientation="vertical" android:padding="24dp">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@string/opening_title" android:textColor="@color/imperial_gold"
+        android:textSize="24sp" android:textStyle="bold" android:gravity="center" />
+    <FrameLayout android:id="@+id/crawl_viewport" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1" android:clipChildren="true">
+        <TextView android:id="@+id/crawl_text" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="@string/opening_lore"
+            android:textColor="@color/ivory" android:textSize="22sp"
+            android:lineSpacingExtra="10dp" android:gravity="center" />
+    </FrameLayout>
+    <com.google.android.material.button.MaterialButton android:id="@+id/skip_button"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@string/skip_opening" />
+</LinearLayout>

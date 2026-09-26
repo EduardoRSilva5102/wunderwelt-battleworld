@@ -1,0 +1,4 @@
+<resources>
+    <string name="enemy_portrait_placeholder">Retrato provisório do adversário</string>
+    <string name="character_portrait_placeholder">Retrato provisório do personagem</string>
+</resources>

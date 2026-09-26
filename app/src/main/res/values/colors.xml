@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="latverian_green_dark">#163A32</color>
+    <color name="military_green">#2E5A46</color>
+    <color name="imperial_gold">#D4AF37</color>
+    <color name="ivory">#F1E7D0</color>
+    <color name="charcoal">#111315</color>
+    <color name="deep_wine">#6E1F2A</color>
+    <color name="surface_elevated">#1C2421</color>
+    <color name="text_secondary">#B9B3A5</color>
+    <color name="danger">#D15B64</color>
+    <color name="success">#69B78D</color>
 </resources>

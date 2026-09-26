@@ -2,6 +2,10 @@
 
 > RPG textual mobile ambientado no Battleworld da Marvel, desenvolvido em Java para Android com arquitetura MVVM.
 
+Estado executável e limitações: [MVP implementado](docs/MVP.md). Convenções visuais:
+[assets](docs/assets/README.md). Referências de canon: [fontes](docs/CANON.md).
+As seções conceituais abaixo registram a visão do projeto; o escopo efetivamente entregue está em `docs/MVP.md`.
+
 ## 📖 Sobre o projeto
 
 **Wunderwelt: Battleworld** é um RPG textual single-player com combates por turnos, desenvolvido como projeto mobile em **Java**, utilizando **Android Studio**, **Fragments** e arquitetura **MVVM**.
@@ -113,9 +117,8 @@ Variantes:
 
 Personagem com habilidades de origem mutante.
 
-### Poder Aleatório
-
-O personagem recebe um poder definido pelo sistema.
+O poder é sorteado uma única vez ao selecionar Mutante e permanece até reiniciar a criação.
+Não existe uma raça separada chamada Poder Aleatório, nem reroll nesta versão.
 
 ### Asgardiano
 
@@ -285,7 +288,7 @@ Características:
 
 ---
 
-## Marvel 1602
+## King James' England
 
 Domínio com estética medieval e renascentista.
 
@@ -311,7 +314,7 @@ Características:
 
 ---
 
-## Kilauea / Cidade Murada de Kowloon
+## Killville
 
 Região densamente ocupada e dominada pelo crime.
 
@@ -593,14 +596,42 @@ onde acontece o confronto contra:
 
 # 🚧 Status atual
 
-O projeto está atualmente em fase de:
+O projeto possui um vertical slice funcional:
 
-- definição das mecânicas;
-- planejamento narrativo;
-- prototipação das telas;
-- estruturação da arquitetura Android.
+- splash nativo, abertura animada pulável e menu;
+- criação de personagem com raça, variante, classe, arma, região e dez pontos de atributos;
+- ficha visual validada, reaberta durante a jornada;
+- cena narrativa variável por região, duas escolhas e consequências;
+- batalha por turnos com ataque, habilidade, defesa, crítico e vantagens de tipo;
+- inimigo específico por região, vitória, derrota e repetição da batalha;
+- quatro encontros por partida: origem, passagem regional, Manhattan e Doomstadt;
+- dois desfechos e opção de reiniciar;
+- catálogo comparativo de seis pares normal/Battleworld, busca e detalhes com Comic Vine opcional;
+- estados de loading, resultado vazio e personagem não encontrado;
+- tela de créditos e placeholders construídos com recursos XML.
 
-A estrutura inicial do projeto Android já foi criada e versionada.
+Os valores de dano, HP, crítico e vantagem são provisórios e estão centralizados em
+`Constants` e `DamageCalculator` para facilitar o balanceamento posterior.
+
+## ▶️ Executando o projeto
+
+Crie ou atualize o arquivo local `local.properties` sem versioná-lo:
+
+```properties
+sdk.dir=CAMINHO_DO_ANDROID_SDK
+# Opcional: obter sua própria chave da Comic Vine. Nunca commitar o valor.
+COMIC_VINE_API=
+```
+
+Então execute:
+
+```text
+gradlew.bat testDebugUnitTest lintDebug assembleDebug
+```
+
+Toda a campanha e os seis pares funcionam sem internet. Com chave configurada,
+a Comic Vine complementa os detalhes normais; erros preservam o fallback local.
+Leia `docs/MVP.md` para requisitos de JDK/SDK, testes e limitações de segurança da chave no APK.
 
 ---
 

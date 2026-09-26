@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.story.StoryFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
-
-</FrameLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/charcoal" android:fillViewport="true" tools:context=".ui.story.StoryFragment">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/screen_padding">
+        <TextView android:id="@+id/chapter_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/imperial_gold" android:textStyle="bold" />
+        <TextView android:id="@+id/scene_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/ivory" android:textSize="28sp" android:textStyle="bold" />
+        <View android:layout_width="match_parent" android:layout_height="190dp" android:layout_marginTop="20dp" android:background="@drawable/bg_logo_placeholder" />
+        <TextView android:id="@+id/narrator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:textColor="@color/imperial_gold" android:textStyle="bold" />
+        <TextView android:id="@+id/story_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:background="@drawable/bg_panel" android:lineSpacingExtra="6dp" android:padding="@dimen/panel_padding" android:textColor="@color/ivory" android:textSize="17sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/choice_one_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/choice_two_button" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/archive_button" style="@style/Widget.Material3.Button.TextButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Consultar Arquivo Comic Vine" tools:ignore="HardcodedText" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/status_button" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ficha do viajante" />
+    </LinearLayout>
+</ScrollView>

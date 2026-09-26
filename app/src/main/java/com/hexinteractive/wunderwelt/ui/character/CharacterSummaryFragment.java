@@ -1,66 +1,64 @@
 package com.hexinteractive.wunderwelt.ui.character;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.hexinteractive.wunderwelt.R;
+import com.hexinteractive.wunderwelt.databinding.FragmentCharacterSummaryBinding;
+import com.hexinteractive.wunderwelt.model.game.AttributeType;
+import com.hexinteractive.wunderwelt.model.game.Attributes;
+import com.hexinteractive.wunderwelt.model.game.Player;
+import com.hexinteractive.wunderwelt.utils.GameManager;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CharacterSummaryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CharacterSummaryFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentCharacterSummaryBinding binding;
 
     public CharacterSummaryFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CharacterSummaryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CharacterSummaryFragment newInstance(String param1, String param2) {
-        CharacterSummaryFragment fragment = new CharacterSummaryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        super(R.layout.fragment_character_summary);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = FragmentCharacterSummaryBinding.bind(view);
+        CharacterViewModel viewModel = new ViewModelProvider(requireActivity()).get(CharacterViewModel.class);
+        boolean status = getArguments() != null && getArguments().getBoolean("readOnly");
+        if ((status && !GameManager.getInstance().hasActiveGame()) || (!status && !viewModel.canBuildPlayer())) {
+            NavHostFragment.findNavController(this).popBackStack();
+            return;
         }
+        Player card = status ? GameManager.getInstance().getPlayer() : viewModel.buildPlayer();
+        binding.playerName.setText(card.getName());
+        String variant = card.getRaceVariant() == null ? "" : " · " + card.getRaceVariant();
+        binding.identitySummary.setText(
+                "Raça: " + card.getRace() + variant + "\n"
+                        + "Classe: " + card.getClassType() + "\n"
+                        + "Arma: " + card.getWeapon() + " (" + card.getWeapon().getBattleType() + ")\n"
+                        + "Origem: " + card.getRegion()
+        );
+        Attributes a = card.getAttributes();
+        binding.attributesSummary.setText(
+                "Força " + a.get(AttributeType.STRENGTH) + "   ·   Vitalidade " + a.get(AttributeType.VITALITY) + "\n"
+                        + "Agilidade " + a.get(AttributeType.AGILITY) + "   ·   Inteligência " + a.get(AttributeType.INTELLIGENCE) + "\n"
+                        + "Energia " + a.get(AttributeType.ENERGY) + "   ·   HP máximo " + card.getMaxHp()
+        );
+        binding.playerPortrait.setContentDescription("Retrato de " + card.getName());
+        binding.startStoryButton.setVisibility(status ? View.GONE : View.VISIBLE);
+        binding.editButton.setText(status ? "Voltar à jornada" : "Voltar e editar");
+        binding.editButton.setOnClickListener(ignored ->
+                NavHostFragment.findNavController(this).popBackStack());
+        binding.startStoryButton.setOnClickListener(ignored -> {
+            Player player = viewModel.buildPlayer();
+            GameManager.getInstance().startNewGame(player);
+            NavHostFragment.findNavController(this).navigate(R.id.action_summary_to_story);
+        });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character_summary, container, false);
-    }
+    @Override public void onDestroyView() { binding = null; super.onDestroyView(); }
 }

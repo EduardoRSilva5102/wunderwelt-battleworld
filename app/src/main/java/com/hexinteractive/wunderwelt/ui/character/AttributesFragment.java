@@ -1,66 +1,72 @@
 package com.hexinteractive.wunderwelt.ui.character;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.hexinteractive.wunderwelt.R;
+import com.hexinteractive.wunderwelt.databinding.FragmentAttributesBinding;
+import com.hexinteractive.wunderwelt.model.game.AttributeType;
+import com.hexinteractive.wunderwelt.model.game.Attributes;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AttributesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AttributesFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentAttributesBinding binding;
+    private CharacterViewModel viewModel;
 
     public AttributesFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AttributesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AttributesFragment newInstance(String param1, String param2) {
-        AttributesFragment fragment = new AttributesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        super(R.layout.fragment_attributes);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = FragmentAttributesBinding.bind(view);
+        viewModel = new ViewModelProvider(requireActivity()).get(CharacterViewModel.class);
+        bindControls();
+        render();
+        binding.nextButton.setOnClickListener(ignored -> {
+            if (!viewModel.getAttributes().isComplete()) {
+                Snackbar.make(binding.getRoot(), "Distribua todos os 10 pontos.", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+            NavHostFragment.findNavController(this).navigate(R.id.action_attributes_to_summary);
+        });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_attributes, container, false);
+    private void bindControls() {
+        binding.strengthPlus.setOnClickListener(v -> change(AttributeType.STRENGTH, true));
+        binding.strengthMinus.setOnClickListener(v -> change(AttributeType.STRENGTH, false));
+        binding.vitalityPlus.setOnClickListener(v -> change(AttributeType.VITALITY, true));
+        binding.vitalityMinus.setOnClickListener(v -> change(AttributeType.VITALITY, false));
+        binding.agilityPlus.setOnClickListener(v -> change(AttributeType.AGILITY, true));
+        binding.agilityMinus.setOnClickListener(v -> change(AttributeType.AGILITY, false));
+        binding.intelligencePlus.setOnClickListener(v -> change(AttributeType.INTELLIGENCE, true));
+        binding.intelligenceMinus.setOnClickListener(v -> change(AttributeType.INTELLIGENCE, false));
+        binding.energyPlus.setOnClickListener(v -> change(AttributeType.ENERGY, true));
+        binding.energyMinus.setOnClickListener(v -> change(AttributeType.ENERGY, false));
     }
+
+    private void change(AttributeType type, boolean increase) {
+        if (increase) viewModel.increaseAttribute(type); else viewModel.decreaseAttribute(type);
+        render();
+    }
+
+    private void render() {
+        Attributes attributes = viewModel.getAttributes();
+        binding.remainingPoints.setText("Pontos restantes: " + attributes.getRemainingPoints());
+        binding.strengthValue.setText(String.valueOf(attributes.get(AttributeType.STRENGTH)));
+        binding.vitalityValue.setText(String.valueOf(attributes.get(AttributeType.VITALITY)));
+        binding.agilityValue.setText(String.valueOf(attributes.get(AttributeType.AGILITY)));
+        binding.intelligenceValue.setText(String.valueOf(attributes.get(AttributeType.INTELLIGENCE)));
+        binding.energyValue.setText(String.valueOf(attributes.get(AttributeType.ENERGY)));
+        binding.nextButton.setEnabled(attributes.isComplete());
+    }
+
+    @Override public void onDestroyView() { binding = null; super.onDestroyView(); }
 }

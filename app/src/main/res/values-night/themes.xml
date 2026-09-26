@@ -1,7 +1,17 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Wunderwelt" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<resources>
+    <style name="Base.Theme.Wunderwelt" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/military_green</item>
+        <item name="colorOnPrimary">@color/ivory</item>
+        <item name="colorSecondary">@color/imperial_gold</item>
+        <item name="colorOnSecondary">@color/charcoal</item>
+        <item name="colorSurface">@color/charcoal</item>
+        <item name="colorOnSurface">@color/ivory</item>
+        <item name="android:colorAccent">@color/imperial_gold</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:navigationBarColor">@color/charcoal</item>
+        <item name="android:statusBarColor">@color/charcoal</item>
+        <item name="android:windowBackground">@color/charcoal</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>
